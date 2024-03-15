@@ -8,7 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-
+use \App\Entity\Category;
+use \App\Entity\Movie;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -21,6 +22,9 @@ class DashboardController extends AbstractDashboardController
         //
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
         return $this->redirect($adminUrlGenerator->setController(CategoryCrudController::class)->generateUrl());
+
+      //  $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+      //  return $this->redirect($adminUrlGenerator->setController(MovieCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         // 
@@ -43,6 +47,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
+        yield MenuItem::linkToCrud('Movie', 'fas fa-list', Movie::class);
     }
 }
